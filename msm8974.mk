@@ -56,7 +56,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     mm.enable.smoothstreaming=true \
-    mm.enable.qcom_parser=3314291 \
+    mm.enable.qcom_parser=3310129 \
     ro.qc.sdk.audio.fluencetype=fluence \
     persist.audio.fluence.voicecall=true \
     audio.offload.buffer.size.kb=32 \
@@ -188,6 +188,7 @@ PRODUCT_PACKAGES += \
     libnl_2 \
     libbson \
     libcnefeatureconfig \
+    libtinyxml \
     libxml2
 
 # ANT+
@@ -236,10 +237,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qti.sensors.ir_proximity=true
-
-# HACK for QC errata issue
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.hwui.render_dirty_regions=false
 
 # Permissions
 PRODUCT_COPY_FILES += \
