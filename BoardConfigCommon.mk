@@ -50,12 +50,13 @@ TARGET_KERNEL_SOURCE := kernel/oneplus/msm8974
 TARGET_KERNEL_ARCH := arm
 
 # Enable DIAG on debug builds
-ifneq ($(TARGET_BUILD_TYPE),user)
+ifneq ($(TARGET_BUILD_VARIANT),user)
 TARGET_KERNEL_ADDITIONAL_CONFIG:= cyanogenmod_debug_config
 endif
 
 # Flags
-COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
+COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD -DUSE_RIL_VERSION_10
+COMMON_GLOBAL_CPPFLAGS += -DNO_SECURE_DISCARD -DUSE_RIL_VERSION_10
 
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
@@ -143,6 +144,18 @@ BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
+
+# Enable transparent compression in the build
+# TARGET_TRANSPARENT_COMPRESSION_METHOD := lz4
+
+# Enable dexpreopt to speed boot time
+ifeq ($(HOST_OS),linux)
+  ifeq ($(call match-word-in-list,$(TARGET_BUILD_VARIANT),user),true)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+    endif
+  endif
+endif
 
 # inherit from the proprietary version
 ifneq ($(QCPATH),)
